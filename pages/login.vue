@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-    import {ref} from 'vue'
+    import {ref, unref} from 'vue'
 
     const email = ref('')
     const password = ref('')
@@ -32,8 +32,8 @@
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                email: email.value,
-                password: password.value,
+                email: unref(email),
+                password: unref(password),
             })
         }
         try {

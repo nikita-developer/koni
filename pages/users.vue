@@ -1,10 +1,20 @@
 <template>
     <div class="login">
         <button @click="getUsers">Получить список пользователей</button>
+        <ul v-for="user in users" :key="user.id">
+            <li>Id: {{user._id}}</li>
+            <li>Имя: {{user.name}}</li>
+            <li>Почта: {{user.email}}</li>
+            <li>Пароль: {{user.password}}</li>
+        </ul>
     </div>
 </template>
 
 <script setup>
+import {ref} from "vue";
+
+    const users = ref('')
+
     const getUsers = async () => {
         const settings = {
             method: 'GET',
@@ -15,9 +25,9 @@
             },
         }
         try {
-            const fetchResponse = await fetch('http://localhost:5000/api/category', settings)
+            const fetchResponse = await fetch('http://localhost:5000/api/users', settings)
             const data = await fetchResponse.json();
-            return console.log(data)
+            users.value = data
         } catch (e) {
             return e
         }
